@@ -4,14 +4,12 @@ import TodoItem from './TodoItem';
 import TodoForm from './TodoForm'
 
 const removeItem = (id, items) => {
-  // TODO omit item where id = id
   function removeIt(item) {
     return item.id !== id
   }
   return items.filter(removeIt)
 }
 
-//CREATE COMPLETE-ITEM CONST.
 const completeItem = (id, items) => {
   function completeIt(item){
     if(item.id === id){
@@ -21,8 +19,14 @@ const completeItem = (id, items) => {
       return item
     }
   }
+  //possibly switch to map (more idiomatic)
   return items.filter(completeIt)
 }
+
+const addItem = (item, items) => {
+  return items.concat([item])
+}
+
 
 class App extends Component {
   constructor(props){
@@ -40,9 +44,13 @@ class App extends Component {
   handleDelete(id) {
     this.setState({todoItems: removeItem(id, this.state.todoItems)})
   }
-  //CREATE HANDLE COMPLETED FN
+
   handleCompleted(id){
    this.setState({todoItems: completeItem(id, this.state.todoItems)}) 
+  }
+
+  handleAdding(item){
+    this.setState({todoItems: addItem(item, this.state.todoItems)})
   }
 
   render() {
@@ -55,7 +63,7 @@ class App extends Component {
               ))
           }
         </ul>
-        <TodoForm/>
+        <TodoForm onSubmission={this.handleAdding.bind(this)}/>
       </div>
       );
   }
