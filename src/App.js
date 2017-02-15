@@ -20,11 +20,6 @@ const completeItem = (id, items) => {
   return items.map(switchStatus)
 }
 
-const addItem = (item, items) => {
-  return items.concat([item])
-}
-
-
 class App extends Component {
   constructor(props){
     super(props);
@@ -35,7 +30,8 @@ class App extends Component {
         {text: 'item3', id: 2, completed: false},
         {text: 'item4', id: 3, completed: false},
         {text: 'item5', id: 4, completed: false}
-      ]
+      ],
+      formInput: ''
     }
   }
   handleDelete(id) {
@@ -47,7 +43,11 @@ class App extends Component {
   }
 
   handleAdding(item){
-    this.setState({todoItems: addItem(item, this.state.todoItems)})
+    this.setState({todoItems: this.state.todoItems.concat([item])})
+  }
+
+  handleChangeInput(text){
+    this.setState({formInput: text})
   }
 
   render() {
@@ -60,7 +60,7 @@ class App extends Component {
               ))
           }
         </ul>
-        <TodoForm onSubmission={this.handleAdding.bind(this)}/>
+        <TodoForm onAddItem={this.handleAdding.bind(this)} formInput={this.state.formInput} onChangeInput={this.handleChangeInput.bind(this)}/>
       </div>
       );
   }

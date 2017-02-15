@@ -4,16 +4,21 @@ var uuid = require('node-uuid');
 class TodoForm extends Component {
 	handleSubmit(event){
 		event.preventDefault()
-		this.props.onSubmission({text: 'test-item', id: uuid.v1(), completed: false})
+		this.props.onAddItem({text: this.props.formInput, id: uuid.v4(), completed: false})
+	}
+
+	handleChange(event){
+		this.props.onChangeInput(event.target.value)
 	}
 
 	render() {
 		return(
 			<div>
+				<p>{this.props.formInput}</p>
 			  <form onSubmit={this.handleSubmit.bind(this)} className='todoForm'>
 			    <label>
 			      Item: 
-			      <input type="text" name="item"/>
+			      <input onChange={this.handleChange.bind(this)} type="text" name="item" value={this.props.formInput}/>
 			    </label>
 			    <input type="submit" value="Add Todo"/>
 			  </form>
