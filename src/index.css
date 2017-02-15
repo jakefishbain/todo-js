@@ -4,7 +4,7 @@ body {
   font-family: sans-serif;
 }
 
-.todoList {
+.todoApp {
 	width: 100%
 }
 
@@ -17,4 +17,10 @@ body {
 .todoForm {
 	padding: 4px;
 	margin: 20px;
+}
+
+.deleteBtn {
+	position: absolute;
+	right: 0;
+	margin-right: 10px;
 }

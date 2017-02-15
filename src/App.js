@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import TodoItem from './TodoItem';
-import TodoForm from './TodoForm'
+import TodoForm from './TodoForm';
+import TodoActions from './TodoActions'
 
 const removeItem = (id, items) => {
   function removeIt(item) {
@@ -30,6 +31,16 @@ const changeComment = (id, text, items) => {
   return items.map(attachComment)  
 }
 
+const markCompleted = (item) => {
+  item.completed = true
+  return item
+} 
+
+const markIncomplete = (item) => {
+  item.completed = false
+  return item
+}
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -53,7 +64,7 @@ class App extends Component {
   }
 
   handleAdding(item){
-    this.setState({todoItems: this.state.todoItems.concat([item])})
+    this.setState({todoItems: this.state.todoItems.concat([item]), formInput: ''})
   }
 
   handleChangeInput(text){
@@ -64,9 +75,17 @@ class App extends Component {
     this.setState({todoItems: changeComment(id, text, this.state.todoItems)})
   }
 
+  handleCompleteAll(items){
+    this.setState({todoItems: this.state.todoItems.map(markCompleted)})
+  }
+
+  handleUncompleteAll(items){
+    this.setState({todoItems: this.state.todoItems.map(markIncomplete)})
+  }
+
   render() {
     return (
-      <div className='todoList'>
+      <div className='todoApp'>
         <ul>
           {
             this.state.todoItems.map(listItem => (
@@ -75,6 +94,7 @@ class App extends Component {
           }
         </ul>
         <TodoForm onAddItem={this.handleAdding.bind(this)} formInput={this.state.formInput} onChangeInput={this.handleChangeInput.bind(this)}/>
+        <TodoActions items={this.state.todoItems} onCompleteAll={this.handleCompleteAll.bind(this)} onUncompleteAll={this.handleUncompleteAll.bind(this)}/>
       </div>
       );
   }

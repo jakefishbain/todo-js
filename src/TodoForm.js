@@ -14,7 +14,6 @@ class TodoForm extends Component {
 	render() {
 		return(
 			<div>
-				<p>{this.props.formInput}</p>
 			  <form onSubmit={this.handleSubmit.bind(this)} className='todoForm'>
 			    <label>
 			      Item: 
