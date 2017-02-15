@@ -83,6 +83,10 @@ class App extends Component {
     this.setState({todoItems: this.state.todoItems.map(markIncomplete)})
   }
 
+  handleDeleteAll(items){
+    this.setState({todoItems: []})
+  }
+
   render() {
     return (
       <div className='todoApp'>
@@ -94,7 +98,7 @@ class App extends Component {
           }
         </ul>
         <TodoForm onAddItem={this.handleAdding.bind(this)} formInput={this.state.formInput} onChangeInput={this.handleChangeInput.bind(this)}/>
-        <TodoActions items={this.state.todoItems} onCompleteAll={this.handleCompleteAll.bind(this)} onUncompleteAll={this.handleUncompleteAll.bind(this)}/>
+        <TodoActions items={this.state.todoItems} onCompleteAll={this.handleCompleteAll.bind(this)} onUncompleteAll={this.handleUncompleteAll.bind(this)} onDeleteAll={this.handleDeleteAll.bind(this)}/>
       </div>
       );
   }
