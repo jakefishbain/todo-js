@@ -11,16 +11,13 @@ const removeItem = (id, items) => {
 }
 
 const completeItem = (id, items) => {
-  function completeIt(item){
+  function switchStatus(item){
     if(item.id === id){
       item.completed = !item.completed
-      return item
-    }else {
-      return item
     }
+    return item
   }
-  //possibly switch to map (more idiomatic)
-  return items.filter(completeIt)
+  return items.map(switchStatus)
 }
 
 const addItem = (item, items) => {
