@@ -31,13 +31,18 @@ const changeComment = (id, text, items) => {
   return items.map(attachComment)  
 }
 
-const markCompleted = (item) => {
-  item.completed = true
-  return item
-} 
+// const markCompleted = (item) => {
+//   item.completed = true
+//   return item
+// } 
 
-const markIncomplete = (item) => {
-  item.completed = false
+// const markIncomplete = (item) => {
+//   item.completed = false
+//   return item
+// }
+
+const toggleComplete = (status, item) => {
+  item.completed = status
   return item
 }
 
@@ -76,11 +81,13 @@ class App extends Component {
   }
 
   handleCompleteAll(items){
-    this.setState({todoItems: this.state.todoItems.map(markCompleted)})
+    // this.setState({todoItems: this.state.todoItems.map(markCompleted)})
+    this.setState({todoItems: this.state.todoItems.map(item => toggleComplete(true, item))})
   }
 
   handleUncompleteAll(items){
-    this.setState({todoItems: this.state.todoItems.map(markIncomplete)})
+    // this.setState({todoItems: this.state.todoItems.map(markIncomplete)})
+    this.setState({todoItems: this.state.todoItems.map(item => toggleComplete(false, item))})
   }
 
   handleDeleteAll(items){
