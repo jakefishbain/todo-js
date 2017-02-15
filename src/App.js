@@ -20,16 +20,26 @@ const completeItem = (id, items) => {
   return items.map(switchStatus)
 }
 
+const changeComment = (id, text, items) => {
+  function attachComment(item){
+    if(item.id === id){
+      item.comment = text
+    }
+    return item
+  }
+  return items.map(attachComment)  
+}
+
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
       todoItems: [
-        {text: 'item1', id: 0, completed: false},
-        {text: 'item2', id: 1, completed: false},
-        {text: 'item3', id: 2, completed: false},
-        {text: 'item4', id: 3, completed: false},
-        {text: 'item5', id: 4, completed: false}
+        {text: 'item1', id: 0, completed: false, comment: ''},
+        {text: 'item2', id: 1, completed: true, comment: ''},
+        {text: 'item3', id: 2, completed: false, comment: ''},
+        {text: 'item4', id: 3, completed: true, comment: ''},
+        {text: 'item5', id: 4, completed: false, comment: ''}
       ],
       formInput: ''
     }
@@ -50,13 +60,17 @@ class App extends Component {
     this.setState({formInput: text})
   }
 
+  handleCommentChange(id, text){
+    this.setState({todoItems: changeComment(id, text, this.state.todoItems)})
+  }
+
   render() {
     return (
       <div className='todoList'>
         <ul>
           {
             this.state.todoItems.map(listItem => (
-              <TodoItem key={listItem.id} text={listItem.text} completed={listItem.completed} id={listItem.id} onDelete={this.handleDelete.bind(this)} onComplete={this.handleCompleted.bind(this)}/>  
+              <TodoItem key={listItem.id} text={listItem.text} completed={listItem.completed} id={listItem.id} comment={listItem.comment} onDelete={this.handleDelete.bind(this)} onComplete={this.handleCompleted.bind(this)} onCommentChange={this.handleCommentChange.bind(this)}/>  
               ))
           }
         </ul>
