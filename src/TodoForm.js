@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+var uuid = require('node-uuid');
 
 class TodoForm extends Component {
 	handleSubmit(event){
 		event.preventDefault()
-		this.props.onSubmission({text: 'test-item', id: 5, completed: false})
+		this.props.onSubmission({text: 'test-item', id: uuid.v1(), completed: false})
 	}
 
 	render() {
