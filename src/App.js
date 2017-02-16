@@ -11,17 +11,6 @@ const removeItem = (id, items) => {
   return items.filter(removeIt)
 }
 
-const editBtnClick = (id, items) => {
-  function switchEditing(item){
-    if(item.id === id){
-      item.isEditing = true
-      console.log(item)
-    }
-    return item
-  }
-  return items.map(switchEditing)
-}
-
 const completeItem = (id, items) => {
   function switchStatus(item){
     if(item.id === id){
@@ -40,6 +29,25 @@ const changeComment = (id, text, items) => {
     return item
   }
   return items.map(attachComment)  
+}
+
+const editBtnClick = (id, items) => {
+  function switchEditing(item){
+    if(item.id === id){
+      item.isEditing = true
+    }
+    console.log(item.isEditing)
+    return item
+  }
+  return items.map(switchEditing)
+}
+
+const editItem = (id, text, items) => {
+  function saveEdit(item){
+    console.log(item.id)
+    return item
+  }
+  return items.map(saveEdit)
 }
 
 const toggleComplete = (status, item) => {
@@ -99,13 +107,17 @@ class App extends Component {
     this.setState({todoItems: editBtnClick(id, this.state.todoItems)})
   }
 
+  handleEditItem(id, text){
+    this.setState({todoItems: editItem(id, text, this.state.todoItems)})
+  }
+
   render() {
     return (
       <div className='todoApp'>
         <ul>
           {
             this.state.todoItems.map(listItem => (
-              <TodoItem key={listItem.id} text={listItem.text} completed={listItem.completed} id={listItem.id} comment={listItem.comment} onDelete={this.handleDelete.bind(this)} onComplete={this.handleCompleted.bind(this)} onCommentChange={this.handleCommentChange.bind(this)} onEditClick={this.handleEditClick.bind(this)}/>  
+              <TodoItem key={listItem.id} text={listItem.text} completed={listItem.completed} id={listItem.id} comment={listItem.comment} onDelete={this.handleDelete.bind(this)} onComplete={this.handleCompleted.bind(this)} onCommentChange={this.handleCommentChange.bind(this)} isEditing={listItem.isEditing} onEditClick={this.handleEditClick.bind(this)} onEditItem={this.handleEditItem.bind(this)}/>  
               ))
           }
         </ul>
