@@ -31,15 +31,25 @@ const changeComment = (id, text, items) => {
   return items.map(attachComment)  
 }
 
-// const markCompleted = (item) => {
-//   item.completed = true
-//   return item
-// } 
+const toggleEdit = (id, items) => {
+  function switchEditing(item){
+    if(item.id === id){
+      item.isEditing = !item.isEditing
+    }
+    return item
+  }
+  return items.map(switchEditing)
+}
 
-// const markIncomplete = (item) => {
-//   item.completed = false
-//   return item
-// }
+const editItem = (id, text, items) => {
+  function saveEdit(item){
+    if(item.id ===id){
+      item.text = text
+    }
+    return item
+  }
+  return items.map(saveEdit)
+}
 
 const toggleComplete = (status, item) => {
   item.completed = status
@@ -51,13 +61,14 @@ class App extends Component {
     super(props);
     this.state = {
       todoItems: [
-        {text: 'item1', id: 0, completed: false, comment: ''},
-        {text: 'item2', id: 1, completed: true, comment: ''},
-        {text: 'item3', id: 2, completed: false, comment: ''},
-        {text: 'item4', id: 3, completed: true, comment: ''},
-        {text: 'item5', id: 4, completed: false, comment: ''}
+        {text: 'item1', id: 0, completed: false, comment: 'comment', isEditing: false},
+        {text: 'item2', id: 1, completed: true, comment: '', isEditing: false},
+        {text: 'item3', id: 2, completed: false, comment: '', isEditing: false},
+        {text: 'item4', id: 3, completed: true, comment: 'comment2', isEditing: false},
+        {text: 'item5', id: 4, completed: false, comment: '', isEditing: false}
       ],
-      formInput: ''
+      formText: 'tttt', 
+      formComment: 'cccc'
     }
   }
   handleDelete(id) {
@@ -69,11 +80,11 @@ class App extends Component {
   }
 
   handleAdding(item){
-    this.setState({todoItems: this.state.todoItems.concat([item]), formInput: ''})
+    this.setState({todoItems: this.state.todoItems.concat([item]),formText: '', formComment: ''})
   }
 
-  handleChangeInput(text){
-    this.setState({formInput: text})
+  handleChangeInput(text, field){
+    this.setState({[field]: text})
   }
 
   handleCommentChange(id, text){
@@ -81,17 +92,23 @@ class App extends Component {
   }
 
   handleCompleteAll(items){
-    // this.setState({todoItems: this.state.todoItems.map(markCompleted)})
     this.setState({todoItems: this.state.todoItems.map(item => toggleComplete(true, item))})
   }
 
   handleUncompleteAll(items){
-    // this.setState({todoItems: this.state.todoItems.map(markIncomplete)})
     this.setState({todoItems: this.state.todoItems.map(item => toggleComplete(false, item))})
   }
 
   handleDeleteAll(items){
     this.setState({todoItems: []})
+  }
+
+  handleToggleEdit(id){
+    this.setState({todoItems: toggleEdit(id, this.state.todoItems)})
+  }
+
+  handleEditItem(id, text){
+    this.setState({todoItems: editItem(id, text, this.state.todoItems)})
   }
 
   render() {
@@ -100,11 +117,11 @@ class App extends Component {
         <ul>
           {
             this.state.todoItems.map(listItem => (
-              <TodoItem key={listItem.id} text={listItem.text} completed={listItem.completed} id={listItem.id} comment={listItem.comment} onDelete={this.handleDelete.bind(this)} onComplete={this.handleCompleted.bind(this)} onCommentChange={this.handleCommentChange.bind(this)}/>  
+              <TodoItem key={listItem.id} text={listItem.text} completed={listItem.completed} id={listItem.id} comment={listItem.comment} onDelete={this.handleDelete.bind(this)} onComplete={this.handleCompleted.bind(this)} onCommentChange={this.handleCommentChange.bind(this)} isEditing={listItem.isEditing} onToggleEdit={this.handleToggleEdit.bind(this)} onEditItem={this.handleEditItem.bind(this)}/>  
               ))
           }
         </ul>
-        <TodoForm onAddItem={this.handleAdding.bind(this)} formInput={this.state.formInput} onChangeInput={this.handleChangeInput.bind(this)}/>
+        <TodoForm onAddItem={this.handleAdding.bind(this)} formText={this.state.formText} formComment={this.state.formComment} onChangeInput={this.handleChangeInput.bind(this)}/>
         <TodoActions items={this.state.todoItems} onCompleteAll={this.handleCompleteAll.bind(this)} onUncompleteAll={this.handleUncompleteAll.bind(this)} onDeleteAll={this.handleDeleteAll.bind(this)}/>
       </div>
       );

@@ -24,3 +24,22 @@ body {
 	right: 0;
 	margin-right: 10px;
 }
+
+.editBtn {
+	position: absolute;
+	right: 0;
+	margin-right: 40px;
+}
+
+.conditionalEdit {
+	display: inline;
+}
+
+.completed {
+	text-decoration: line-through;
+	background: lightgrey;
+}
+
+label {
+	color: blue;
+}
