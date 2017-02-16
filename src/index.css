@@ -34,3 +34,8 @@ body {
 .conditionalEdit {
 	display: inline;
 }
+
+.completed {
+	text-decoration: line-through;
+	background: lightgrey;
+}

@@ -62,10 +62,10 @@ class App extends Component {
     super(props);
     this.state = {
       todoItems: [
-        {text: 'item1', id: 0, completed: false, comment: '', isEditing: false},
+        {text: 'item1', id: 0, completed: false, comment: 'comment', isEditing: false},
         {text: 'item2', id: 1, completed: true, comment: '', isEditing: false},
         {text: 'item3', id: 2, completed: false, comment: '', isEditing: false},
-        {text: 'item4', id: 3, completed: true, comment: '', isEditing: false},
+        {text: 'item4', id: 3, completed: true, comment: 'also a comment', isEditing: false},
         {text: 'item5', id: 4, completed: false, comment: '', isEditing: false}
       ],
       formInput: ''
