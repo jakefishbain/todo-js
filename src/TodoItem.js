@@ -14,9 +14,13 @@ class TodoItem extends Component {
 		  	<input type='checkbox' checked={this.props.completed} onChange={() => this.props.onComplete(this.props.id)}/>
 		  	{this.props.text} {this.props.comment} {this.props.completed.toString()}
 		  	<input onChange={this.commentChange.bind(this)} type='text' name='comment' placeholder='comment'/>
-			  {this.props.isEditing?
-			  	(<input  onChange={this.itemEdit.bind(this)} type='text' name='editedItem' placeholder={this.props.text}/>)
-			  	:(<button className='editBtn' onClick={()=> this.props.onEditClick(this.props.id)}>Edit</button>)}
+			  {this.props.isEditing?(
+			  	<div className='conditionalEdit'>
+				  	<input onChange={this.itemEdit.bind(this)} type='text' name='editedItem' placeholder={this.props.text}/>
+				  	<button>Save</button>
+			  	</div>
+			  ):
+			  	(<button className='editBtn' onClick={()=> this.props.onEditClick(this.props.id)}>Edit</button>)}
 		  	<button onClick={() => this.props.onDelete(this.props.id)} className='deleteBtn'>🗑</button>
 			</li>
 		)
