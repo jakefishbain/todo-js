@@ -17,12 +17,10 @@ class TodoForm extends Component {
 		return(
 			<div>
 			  <form onSubmit={this.handleSubmit.bind(this)} className='todoForm'>
-			    <label>
 			      Item: 
 			      <input onChange={this.handleChange.bind(this, 'formText')} type="text" name="text" value={this.props.formText}/>
 			      Comment:
 			      <input onChange={this.handleChange.bind(this, 'formComment')} type="text" name="comment" value={this.props.formComment}/>
-			    </label>
 			    <input type="submit" value="Add Todo"/>
 			  </form>
 			</div>
