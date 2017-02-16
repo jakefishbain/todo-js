@@ -4,11 +4,13 @@ var uuid = require('node-uuid');
 class TodoForm extends Component {
 	handleSubmit(event){
 		event.preventDefault()
-		this.props.onAddItem({text: this.props.formInput, id: uuid.v4(), completed: false})
+		console.log(this.props.formText)
+		console.log(this.props.formComment)
+		this.props.onAddItem({text: this.props.formText, comment: this.props.formComment, id: uuid.v4(), completed: false})
 	}
 
-	handleChange(event){
-		this.props.onChangeInput(event.target.value)
+	handleChange(field, event){
+		this.props.onChangeInput(event.target.value, field)
 	}
 
 	render() {
@@ -17,7 +19,9 @@ class TodoForm extends Component {
 			  <form onSubmit={this.handleSubmit.bind(this)} className='todoForm'>
 			    <label>
 			      Item: 
-			      <input onChange={this.handleChange.bind(this)} type="text" name="item" value={this.props.formInput}/>
+			      <input onChange={this.handleChange.bind(this, 'formText')} type="text" name="text" value={this.props.formText}/>
+			      Comment:
+			      <input onChange={this.handleChange.bind(this, 'formComment')} type="text" name="comment" value={this.props.formComment}/>
 			    </label>
 			    <input type="submit" value="Add Todo"/>
 			  </form>
