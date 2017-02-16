@@ -31,10 +31,10 @@ const changeComment = (id, text, items) => {
   return items.map(attachComment)  
 }
 
-const editBtnClick = (id, items) => {
+const toggleEdit = (id, items) => {
   function switchEditing(item){
     if(item.id === id){
-      item.isEditing = true
+      item.isEditing = !item.isEditing
     }
     console.log(item.isEditing)
     return item
@@ -44,7 +44,9 @@ const editBtnClick = (id, items) => {
 
 const editItem = (id, text, items) => {
   function saveEdit(item){
-    console.log(item.id)
+    if(item.id ===id){
+      item.text = text
+    }
     return item
   }
   return items.map(saveEdit)
@@ -103,8 +105,8 @@ class App extends Component {
     this.setState({todoItems: []})
   }
 
-  handleEditClick(id){
-    this.setState({todoItems: editBtnClick(id, this.state.todoItems)})
+  handleToggleEdit(id){
+    this.setState({todoItems: toggleEdit(id, this.state.todoItems)})
   }
 
   handleEditItem(id, text){
@@ -117,7 +119,7 @@ class App extends Component {
         <ul>
           {
             this.state.todoItems.map(listItem => (
-              <TodoItem key={listItem.id} text={listItem.text} completed={listItem.completed} id={listItem.id} comment={listItem.comment} onDelete={this.handleDelete.bind(this)} onComplete={this.handleCompleted.bind(this)} onCommentChange={this.handleCommentChange.bind(this)} isEditing={listItem.isEditing} onEditClick={this.handleEditClick.bind(this)} onEditItem={this.handleEditItem.bind(this)}/>  
+              <TodoItem key={listItem.id} text={listItem.text} completed={listItem.completed} id={listItem.id} comment={listItem.comment} onDelete={this.handleDelete.bind(this)} onComplete={this.handleCompleted.bind(this)} onCommentChange={this.handleCommentChange.bind(this)} isEditing={listItem.isEditing} onToggleEdit={this.handleToggleEdit.bind(this)} onEditItem={this.handleEditItem.bind(this)}/>  
               ))
           }
         </ul>

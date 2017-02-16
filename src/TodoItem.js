@@ -17,10 +17,10 @@ class TodoItem extends Component {
 			  {this.props.isEditing?(
 			  	<div className='conditionalEdit'>
 				  	<input onChange={this.itemEdit.bind(this)} type='text' name='editedItem' placeholder={this.props.text}/>
-				  	<button>Save</button>
+				  	<button onClick={() => this.props.onToggleEdit(this.props.id)}>Save</button>
 			  	</div>
 			  ):
-			  	(<button className='editBtn' onClick={()=> this.props.onEditClick(this.props.id)}>Edit</button>)}
+			  	(<button className='editBtn' onClick={()=> this.props.onToggleEdit(this.props.id)}>Edit</button>)}
 		  	<button onClick={() => this.props.onDelete(this.props.id)} className='deleteBtn'>🗑</button>
 			</li>
 		)
