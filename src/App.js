@@ -67,8 +67,8 @@ class App extends Component {
         {text: 'item4', id: 3, completed: true, comment: 'comment2', isEditing: false},
         {text: 'item5', id: 4, completed: false, comment: '', isEditing: false}
       ],
-      formText: 'tttt', 
-      formComment: 'cccc'
+      formText: '', 
+      formComment: ''
     }
   }
   handleDelete(id) {
