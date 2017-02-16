@@ -24,3 +24,9 @@ body {
 	right: 0;
 	margin-right: 10px;
 }
+
+.editBtn {
+	position: absolute;
+	right: 0;
+	margin-right: 40px;
+}
