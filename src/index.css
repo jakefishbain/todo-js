@@ -39,3 +39,7 @@ body {
 	text-decoration: line-through;
 	background: lightgrey;
 }
+
+label {
+	color: blue;
+}

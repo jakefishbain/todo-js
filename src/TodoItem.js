@@ -20,9 +20,9 @@ class TodoItem extends Component {
 			<li className={this.className()}>
 			  {this.props.isEditing?(
 			  	<div className='conditionalEdit'>
-			  		<label for='editiedItem'>Item:</label>
+			  		<label htmlFor='editiedItem'>Item:</label>
 				  	<input onChange={this.itemEdit.bind(this)} type='text' name='editedItem' placeholder={this.props.text}/>
-				  	<label for='comment'>Comment:</label>
+				  	<label htmlFor='comment'>Comment:</label>
 				  	<input onChange={this.commentChange.bind(this)} type='text' name='comment' placeholder={this.props.comment}/>
 				  	<button onClick={() => this.props.onToggleEdit(this.props.id)}>Save</button>
 			  	</div>
